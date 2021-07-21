@@ -1,0 +1,124 @@
+Using pre-set license
+Built from '2020.3/release' branch; Version is '2020.3.2f1 (8fd9074bf66c) revision 9427207'; Using compiler version '192528614'; Build Type 'Release'
+OS: 'Windows 10 Pro; OS build 19041.1083; Version 2004; 64bit' Language: 'pl' Physical Memory: 8074 MB
+BatchMode: 1, IsHumanControllingUs: 0, StartBugReporterOnCrash: 0, Is64bit: 1, IsPro: 0
+
+ COMMAND LINE ARGUMENTS:
+C:\Program Files\Unity\Hub\Editor\2020.3.2f1\Editor\Unity.exe
+-adb2
+-batchMode
+-noUpm
+-name
+AssetImportWorker0
+-projectPath
+C:/UnityProjects/RTS/RTS/RTS
+-logFile
+Logs/AssetImportWorker0.log
+-srvPort
+50463
+Successfully changed project path to: C:/UnityProjects/RTS/RTS/RTS
+C:/UnityProjects/RTS/RTS/RTS
+Using Asset Import Pipeline V2.
+Refreshing native plugins compatible for Editor in 134.83 ms, found 0 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Initialize engine version: 2020.3.2f1 (8fd9074bf66c)
+[Subsystems] Discovering subsystems at path C:/Program Files/Unity/Hub/Editor/2020.3.2f1/Editor/Data/Resources/UnitySubsystems
+[Subsystems] Discovering subsystems at path C:/UnityProjects/RTS/RTS/RTS/Assets
+GfxDevice: creating device client; threaded=0
+Direct3D:
+    Version:  Direct3D 11.0 [level 11.0]
+    Renderer: NVIDIA GeForce GTX 660 Ti (ID=0x1183)
+    Vendor:   
+    VRAM:     1998 MB
+    Driver:   27.21.14.5730
+Shader 'Universal Render Pipeline/Particles/Lit': fallback shader 'Universal Render Pipeline/Particles/SimpleLit' not found
+Initialize mono
+Mono path[0] = 'C:/Program Files/Unity/Hub/Editor/2020.3.2f1/Editor/Data/Managed'
+Mono path[1] = 'C:/Program Files/Unity/Hub/Editor/2020.3.2f1/Editor/Data/MonoBleedingEdge/lib/mono/unityjit'
+Mono config path = 'C:/Program Files/Unity/Hub/Editor/2020.3.2f1/Editor/Data/MonoBleedingEdge/etc'
+Using monoOptions --debugger-agent=transport=dt_socket,embedding=1,server=y,suspend=n,address=127.0.0.1:56380
+Begin MonoManager ReloadAssembly
+Registering precompiled unity dll's ...
+Register platform support module: C:/Program Files/Unity/Hub/Editor/2020.3.2f1/Editor/Data/PlaybackEngines/WindowsStandaloneSupport/UnityEditor.WindowsStandalone.Extensions.dll
+Registered in 0.002201 seconds.
+Native extension for WindowsStandalone target not found
+Refreshing native plugins compatible for Editor in 123.26 ms, found 0 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Invoked RoslynAnalysisRunner static constructor.
+RoslynAnalysisRunner will not be running.
+RoslynAnalysisRunner has terminated.
+Mono: successfully reloaded assembly
+- Completed reload, in  2.786 seconds
+Platform modules already initialized, skipping
+Registering precompiled user dll's ...
+Registered in 0.005172 seconds.
+Begin MonoManager ReloadAssembly
+Native extension for WindowsStandalone target not found
+Refreshing native plugins compatible for Editor in 90.98 ms, found 0 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Invoked RoslynAnalysisRunner static constructor.
+RoslynAnalysisRunner will not be running.
+RoslynAnalysisRunner has terminated.
+Mono: successfully reloaded assembly
+- Completed reload, in  3.829 seconds
+Platform modules already initialized, skipping
+========================================================================
+Worker process is ready to serve import requests
+Shader 'Universal Render Pipeline/Particles/Lit': fallback shader 'Universal Render Pipeline/Particles/SimpleLit' not found
+Launched and connected shader compiler UnityShaderCompiler.exe after 0.17 seconds
+Refreshing native plugins compatible for Editor in 0.87 ms, found 0 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Unloading 2740 Unused Serialized files (Serialized files now loaded: 0)
+System memory in use before: 151.2 MB.
+System memory in use after: 151.4 MB.
+
+Unloading 16 unused Assets to reduce memory usage. Loaded Objects now: 3200.
+Total: 3.220000 ms (FindLiveObjects: 0.444200 ms CreateObjectMapping: 0.249800 ms MarkObjects: 2.338400 ms  DeleteObjects: 0.185900 ms)
+
+========================================================================
+Received Import Request.
+  path: Assets/CharacterAttack.cs
+  artifactKey: Guid(713834ea7e6353648a23b1631a69faad) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/CharacterAttack.cs using Guid(713834ea7e6353648a23b1631a69faad) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'a9994837b881639bbf12cff715651246') in 0.041265 seconds
+  Import took 0.049607 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 15.707028 seconds.
+  path: Assets/AnimationEventListener.cs
+  artifactKey: Guid(371eea5734c346b44bd067d69c4d1066) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/AnimationEventListener.cs using Guid(371eea5734c346b44bd067d69c4d1066) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'b06800743dbc612801b95faed78098ec') in 0.009625 seconds
+  Import took 0.016658 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.001485 seconds.
+  path: Assets/AnimationEventListener.cs
+  artifactKey: Guid(371eea5734c346b44bd067d69c4d1066) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/AnimationEventListener.cs using Guid(371eea5734c346b44bd067d69c4d1066) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'b06800743dbc612801b95faed78098ec') in 0.004849 seconds
+  Import took 0.011514 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 17.811083 seconds.
+  path: Assets/BattleUnitModel.cs
+  artifactKey: Guid(e1a80ba8fdbf8d74e8d41dfdb7919c56) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/BattleUnitModel.cs using Guid(e1a80ba8fdbf8d74e8d41dfdb7919c56) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '4271059d935b277bb14cf1baee061910') in 0.011523 seconds
+  Import took 0.020375 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.914662 seconds.
+  path: Assets/BattleUnit.cs
+  artifactKey: Guid(b4f98533b265714488fe315b1058eb32) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/BattleUnit.cs using Guid(b4f98533b265714488fe315b1058eb32) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '0659d5116a868bc3a98573226bede428') in 0.008050 seconds
+  Import took 0.017516 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000783 seconds.
+  path: Assets/BattleUnit.cs
+  artifactKey: Guid(b4f98533b265714488fe315b1058eb32) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/BattleUnit.cs using Guid(b4f98533b265714488fe315b1058eb32) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '0659d5116a868bc3a98573226bede428') in 0.006259 seconds
+  Import took 0.013830 seconds .
+
