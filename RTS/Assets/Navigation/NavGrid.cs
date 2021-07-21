@@ -17,70 +17,20 @@ namespace KK.NavGrid
 
         public Vector2Int gridSize;
         public List<Vector2Int> obstacles;
-        public List<Vector2Int> occupiedNodes;
-        //public List<Vector2Int> reservedNodes;
+        public List<Vector2Int> occupiedNodes;        
 
         public void Init()
         {
-            occupiedNodes = new List<Vector2Int>();
-            //reservedNodes = new List<Vector2Int>();
+            occupiedNodes = new List<Vector2Int>();            
 
             pathfinding.Init(gridSize, obstacles);
 
             pathRequests = new List<PathRequest>();
+        } 
+        public bool IsNodeAnObstacle(Vector2Int node)
+        {
+            return obstacles.Contains(node);
         }
-        //public bool IsNodeAvailable(Vector2Int node)
-        //{
-        //    return !occupiedNodes.Contains(node) && !reservedNodes.Contains(node);
-        //}
-        //public bool ReserveNode(Vector2Int node)
-        //{
-        //    if (reservedNodes.Contains(node))
-        //    {
-        //        return false;
-        //    }
-        //    else
-        //    {
-        //        reservedNodes.Add(node);
-        //        return true;
-        //    }
-        //}
-        //public bool UnreserveNode(Vector2Int node)
-        //{
-        //    if (reservedNodes.Contains(node))
-        //    {
-        //        reservedNodes.Remove(node);
-        //        return true;
-        //    }
-        //    else
-        //    {
-        //        return false;
-        //    }
-        //}
-        //public bool OccupyNode(Vector2Int node)
-        //{
-        //    if (occupiedNodes.Contains(node))
-        //    {
-        //        return false;
-        //    }
-        //    else
-        //    {
-        //        occupiedNodes.Add(node);
-        //        return true;
-        //    }
-        //}
-        //public bool UnoccupyNode(Vector2Int node)
-        //{
-        //    if (occupiedNodes.Contains(node))
-        //    {
-        //        occupiedNodes.Remove(node);
-        //        return true;
-        //    }
-        //    else
-        //    {
-        //        return false;
-        //    }
-        //}
         public bool IsNodeOccupied(Vector2Int node)
         {
             return occupiedNodes.Contains(node);
@@ -95,14 +45,12 @@ namespace KK.NavGrid
         }
 
         public Vector2Int WorldToCell(Vector3 worldPos)
-        {
-            //Vector3Int cellPos = grid.WorldToCell(worldPos /*- leftBottomTilePos.position*/);// + grid.cellSize / 2f);
+        {            
             Vector3Int cellPos = grid.WorldToCell(worldPos);
             return new Vector2Int(cellPos.x, cellPos.z);
         }
         public Vector3 GetCellCenterWorld(Vector2Int cell)
-        {
-            //return /*leftBottomTilePos.position + */grid.GetCellCenterWorld(new Vector3Int(cell.x, 0, cell.y));// - grid.cellSize / 2f;
+        {         
             return grid.GetCellCenterWorld(new Vector3Int(cell.x, 0, cell.y));
         }
         public Vector3 CellToLocal(Vector2Int cell)
@@ -153,7 +101,7 @@ namespace KK.NavGrid
                         pathRequests[i].agent.SetPath(paths[i]);
                 }
 
-                //Debug.Log(pathRequests.Count + " requests done in: " + ((Time.realtimeSinceStartup - startTime) * 1000f) + "ms");
+                Debug.Log(pathRequests.Count + " requests done in: " + ((Time.realtimeSinceStartup - startTime) * 1000f) + "ms");
                 pathRequests.Clear();
             }
         }
