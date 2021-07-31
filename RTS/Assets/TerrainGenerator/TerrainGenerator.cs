@@ -22,7 +22,7 @@ public class TerrainGenerator : MonoBehaviour
         for (int i = childCount - 1; i >= 0; i--) DestroyImmediate(transform.GetChild(i).gameObject);
 
         terrain = GetComponent<Terrain>();
-        terrain.terrainData = GenerateTerrainData(terrain.terrainData);
+        terrain.terrainData = GenerateTerrainData(terrain.terrainData);        
     }
     public void SnapDecorationsToGrid()
     {
@@ -89,8 +89,8 @@ public class TerrainGenerator : MonoBehaviour
 
         int segmentLength = 120;
         int segmentBreadth = 30;
-        int leftBottom_X = width / 2 - middleSegmentWidth - segmentBreadth;
-        int leftBottom_Y = height / 2 - middleSegmentHeight - segmentBreadth;
+        int leftBottom_X = middle_X - middleSegmentWidth - segmentBreadth;
+        int leftBottom_Y = middle_Y - middleSegmentHeight - segmentBreadth;
 
         Vector2Int[] leftBottom_Points = new Vector2Int[]
         {
@@ -108,8 +108,8 @@ public class TerrainGenerator : MonoBehaviour
         new Vector2Int(leftBottom_X+segmentLength-cornerCutting,leftBottom_Y),
         };
 
-        int rightBottom_X = width / 2 + middleSegmentWidth + segmentBreadth;
-        int rightBottom_Y = height / 2 - middleSegmentHeight - segmentBreadth;
+        int rightBottom_X = middle_X + middleSegmentWidth + segmentBreadth;
+        int rightBottom_Y = middle_Y - middleSegmentHeight - segmentBreadth;
 
         Vector2Int[] rightBottom_Points = new Vector2Int[]
         {
@@ -127,8 +127,8 @@ public class TerrainGenerator : MonoBehaviour
         new Vector2Int(rightBottom_X-segmentLength+cornerCutting,rightBottom_Y),
         };
 
-        int rightUpper_X = width / 2 + middleSegmentWidth + segmentBreadth;
-        int rightUpper_Y = height / 2 + middleSegmentHeight + segmentBreadth;
+        int rightUpper_X = middle_X + middleSegmentWidth + segmentBreadth;
+        int rightUpper_Y = middle_Y + middleSegmentHeight + segmentBreadth;
 
         Vector2Int[] rightUpper_Points = new Vector2Int[]
         {
@@ -146,8 +146,8 @@ public class TerrainGenerator : MonoBehaviour
         new Vector2Int(rightUpper_X-segmentLength+cornerCutting,rightUpper_Y),
         };
 
-        int leftUpper_X = width / 2 - middleSegmentWidth - segmentBreadth;
-        int leftUpper_Y = height / 2 + middleSegmentHeight + segmentBreadth;
+        int leftUpper_X = middle_X - middleSegmentWidth - segmentBreadth;
+        int leftUpper_Y = middle_Y + middleSegmentHeight + segmentBreadth;
 
         Vector2Int[] leftUpper_Points = new Vector2Int[]
         {
@@ -165,11 +165,30 @@ public class TerrainGenerator : MonoBehaviour
         new Vector2Int(leftUpper_X+segmentLength-cornerCutting,leftUpper_Y),
         };
 
+        int islandWidth = 30;
+        int islandHeight = 30;
+
+        int leftIsland_X = (leftBottom_X + (middle_X - middleSegmentWidth / 2)) / 2;
+        int leftIsland_Y = middle_Y;
+
+        Vector2Int[] leftisland_Points = new Vector2Int[]
+        {
+            new Vector2Int(leftIsland_X-islandWidth/2+cornerCutting, leftIsland_Y-islandHeight/2),
+            new Vector2Int(leftIsland_X-islandWidth/2, leftIsland_Y-islandHeight/2+cornerCutting),
+            new Vector2Int(leftIsland_X-islandWidth/2, leftIsland_Y+islandHeight/2-cornerCutting),
+            new Vector2Int(leftIsland_X-islandWidth/2+cornerCutting, leftIsland_Y+islandHeight/2),
+            new Vector2Int(leftIsland_X+islandWidth/2-cornerCutting, leftIsland_Y+islandHeight/2),
+            new Vector2Int(leftIsland_X+islandWidth/2, leftIsland_Y+islandHeight/2-cornerCutting),
+            new Vector2Int(leftIsland_X+islandWidth/2, leftIsland_Y-islandHeight/2+cornerCutting),
+            new Vector2Int(leftIsland_X+islandWidth/2-cornerCutting, leftIsland_Y-islandHeight/2),
+        };
+
         CreateIsland(middle_Points, ref heights);
         CreateIsland(leftBottom_Points, ref heights);
         CreateIsland(rightBottom_Points, ref heights);
         CreateIsland(rightUpper_Points, ref heights);
         CreateIsland(leftUpper_Points, ref heights);
+        CreateIsland(leftisland_Points, ref heights);
 
         float unitDiameter = (float)this.width / width;
         int x1, x2, y1, y2, x, y;
