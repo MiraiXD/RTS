@@ -28,7 +28,7 @@ public class Lobby : MonoBehaviour
     public InputField nameInputField;
     public Image loadingScreen;
     private void Start()
-    {
+    {        
         Init();
     }
     private void Init()
@@ -42,7 +42,7 @@ public class Lobby : MonoBehaviour
         connectButton.GetComponentInChildren<Text>().text = "Connecting";
         // Attempt to login to PlayFab
         var request = new LoginWithCustomIDRequest { CustomId = clientName, CreateAccount = true };
-        PlayFabClientAPI.LoginWithCustomID(request, (LoginResult result)=> { StartMatchmakingRequest(result.EntityToken.Entity.Id, result.EntityToken.Entity.Type); }, OnPlayFabError);
+        PlayFabClientAPI.LoginWithCustomID(request, (LoginResult result) => { StartMatchmakingRequest(result.EntityToken.Entity.Id, result.EntityToken.Entity.Type); }, OnPlayFabError);
 
         connectButton.interactable = false;
     }
@@ -114,7 +114,7 @@ public class Lobby : MonoBehaviour
             // callbacks
             this.OnGetMatchmakingTicket,
             this.OnPlayFabError
-        );        
+        );
     }
     private void OnGetMatchmakingTicket(GetMatchmakingTicketResult getMatchmakingTicketResult)
     {
@@ -134,7 +134,7 @@ public class Lobby : MonoBehaviour
         {
             // If we don't have a conclusive matchmaking status, we keep polling the ticket
             StartCoroutine(PollMatchmakingTicket(getMatchmakingTicketResult.TicketId));
-        }        
+        }
     }
     private void MatchFound(GetMatchmakingTicketResult getMatchmakingTicketResult)
     {
@@ -173,30 +173,16 @@ public class Lobby : MonoBehaviour
         // Connect and initialize the DarkRiftClient, hand over control to the NetworkManager
         if (tcpPort != 0 && udpPort != 0)
         {
-            LoadSceneAsync("Default_4", delegate {
-                networkManager.Init(nameInputField.text);
-                networkManager.Connect(IPAddress.Parse(ipString), tcpPort, udpPort);
-            });
-
-            
-            
-        }        
-    } 
+            networkManager.Init(nameInputField.text);
+            networkManager.Connect(IPAddress.Parse(ipString), tcpPort, udpPort);
+        }
+    }
     public void LocalConnect()
     {
         connectButton.GetComponentInChildren<Text>().text = "Connect1";
         networkManager.Init(nameInputField.text);
-        networkManager.Connect(IPAddress.Parse("127.0.0.1"), 4296, 4296);        
+        networkManager.Connect(IPAddress.Parse("127.0.0.1"), 4296, 4296);
     }
 
-    public IEnumerator LoadSceneAsync(string scene, Action callback=null)
-    {
-        AsyncOperation asyncOperation = UnityEngine.SceneManagement.SceneManager.LoadSceneAsync(scene);
-        while(!asyncOperation.isDone)
-        {
-            yield return null;
-        }
-
-        callback?.Invoke();
-    }
+    
 }

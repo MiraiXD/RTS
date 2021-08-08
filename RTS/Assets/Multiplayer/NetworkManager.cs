@@ -10,6 +10,8 @@ using System.Net;
 using PlayFab;
 using PlayFab.ClientModels;
 using PlayFab.MultiplayerModels;
+using System.Reflection;
+
 public class NetworkManager : MonoBehaviour
 {
     public UnityEngine.UI.Text debugText;
@@ -24,32 +26,45 @@ public class NetworkManager : MonoBehaviour
 
         DontDestroyOnLoad(gameObject);
 
-        clientMessage_Actions = new Dictionary<ushort, Action<Message, object, MessageReceivedEventArgs>>();
-        //clientMessage_Actions.Add(Tags.PlayerConnectTag, OnPlayerConnect);
+        clientMessage_Actions = new Dictionary<ushort, Action<Message, object, MessageReceivedEventArgs>>();        
+
         clientMessage_Actions.Add(Messages.Server.ConnectedPlayers.Tag, OnConnectedPlayersMessage);
         clientMessage_Actions.Add(Messages.Server.PlayerDisconnected.Tag, OnPlayerDisconnected);
-        clientMessage_Actions.Add(Messages.Server.Update.Tag, OnUpdateMessage);
         clientMessage_Actions.Add(Messages.Server.LoadMap.Tag, OnLoadMapMessage);
+        clientMessage_Actions.Add(Messages.Server.StartGame.Tag, OnStartGameMessage);
+        clientMessage_Actions.Add(Messages.Server.WorldUpdate.Tag, OnWorldUpdate);
         client.MessageReceived += OnMessageReceived;
+    }
+    float lastWorldUpdateTime;
+    private void OnWorldUpdate(Message arg1, object arg2, MessageReceivedEventArgs arg3)
+    {
+        Debug.Log(Time.realtimeSinceStartup - lastWorldUpdateTime);
+        lastWorldUpdateTime = Time.realtimeSinceStartup;
+    }
+    GameObject cube;
+    private void OnStartGameMessage(Message message, object sender, MessageReceivedEventArgs e)
+    {
+        cube = GameObject.CreatePrimitive(PrimitiveType.Cube);
     }
 
     private void OnLoadMapMessage(Message message, object sender, MessageReceivedEventArgs e)
-    {
+    {        
         using (DarkRiftReader reader = message.GetReader())
         {
-            Messages.Server.LoadMap serverMessage = reader.ReadSerializable<Messages.Server.LoadMap>();
-
+            Messages.Server.LoadMap serverMessage = reader.ReadSerializable<Messages.Server.LoadMap>();            
+            StartCoroutine(LoadSceneAsync(serverMessage.mapName, () =>
+            {               
+                Messages.Player.ReadyToStartGame playerMessage = new Messages.Player.ReadyToStartGame();
+                using (DarkRiftWriter writer = DarkRiftWriter.Create())
+                {
+                    writer.Write(playerMessage);
+                    using (Message m = Message.Create(Messages.Player.ReadyToStartGame.Tag, writer))
+                    {
+                        client.SendMessage(m, SendMode.Reliable);   
+                    }
+                }
+            }));
         }
-    }
-
-    float lastUpdateTime;
-    int i;
-    private void OnUpdateMessage(Message message, object sender, MessageReceivedEventArgs e)
-    {
-        float ping = Time.realtimeSinceStartup - lastUpdateTime;
-        ping *= 1000f;
-        debugText.text = ping.ToString() + " : " + i++.ToString();
-        lastUpdateTime = Time.realtimeSinceStartup;
     }
 
     private void OnPlayerDisconnected(Message arg1, object arg2, MessageReceivedEventArgs arg3)
@@ -72,13 +87,13 @@ public class NetworkManager : MonoBehaviour
     public void Connect(IPAddress ip, int tcpPort, int udpPort)
     {
         debugText.text = ("CONNECTING");
-        client.ConnectInBackground(ip, tcpPort, udpPort, true, delegate{ OnPlayFabConnectSuccessful(); });
+        client.ConnectInBackground(ip, tcpPort, udpPort, true, delegate { OnPlayFabConnectSuccessful(); });
         debugText.text = ("CONNECTING2");
     }
 
     private void OnPlayFabConnectSuccessful()
     {
-        if(client.ConnectionState == ConnectionState.Connected)
+        if (client.ConnectionState == ConnectionState.Connected)
         {
             debugText.text = ("SENDING HELLO");
             SendPlayerHello(playerName);
@@ -90,12 +105,12 @@ public class NetworkManager : MonoBehaviour
         }
     }
 
-    
+
     public void SendPlayerHello(string playerName)
     {
         using (DarkRiftWriter writer = DarkRiftWriter.Create())
         {
-            writer.Write(new Messages.Player.Hello() {playerName= playerName });
+            writer.Write(new Messages.Player.Hello() { playerName = playerName });
             using (Message message = Message.Create(Messages.Player.Hello.Tag, writer))
             {
                 client.SendMessage(message, SendMode.Reliable);
@@ -115,5 +130,18 @@ public class NetworkManager : MonoBehaviour
                 debugText.text = ("No such tag!");
             }
         }
+    }
+    public IEnumerator LoadSceneAsync(string scene, Action callback = null)
+    {
+        Debug.Log("LOAD MAP2");
+        AsyncOperation asyncOperation = UnityEngine.SceneManagement.SceneManager.LoadSceneAsync(scene);
+        Debug.Log("LOAD MAP3");        
+        while (!asyncOperation.isDone)
+        {
+            Debug.Log("LOADING " + asyncOperation.progress);
+            yield return null;
+        }
+
+        callback?.Invoke();
     }
 }
