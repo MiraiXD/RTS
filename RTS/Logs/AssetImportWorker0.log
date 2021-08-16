@@ -210,3 +210,39 @@ System memory in use after: 182.1 MB.
 Unloading 15 unused Assets to reduce memory usage. Loaded Objects now: 3602.
 Total: 3.419400 ms (FindLiveObjects: 0.337300 ms CreateObjectMapping: 0.128200 ms MarkObjects: 2.723100 ms  DeleteObjects: 0.229200 ms)
 
+========================================================================
+Received Import Request.
+  Time since last request: 1983.575997 seconds.
+  path: Assets/1v1v1v1/1v1v1v1.unity
+  artifactKey: Guid(d8fc9c183af6df747b27e62334a8571f) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/1v1v1v1/1v1v1v1.unity using Guid(d8fc9c183af6df747b27e62334a8571f) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '239dc6955fa00b25623c6260f33c81be') in 0.079704 seconds
+  Import took 0.091150 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 1.332229 seconds.
+  path: Assets/1v1v1v1/Terrain.asset
+  artifactKey: Guid(e8f72bbd2e4c02242b3b4dc87374d4d7) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/1v1v1v1/Terrain.asset using Guid(e8f72bbd2e4c02242b3b4dc87374d4d7) Importer(815301076,1909f56bfc062723c751e8b465ee728b) The tree Tree_01 must use the Nature/Soft Occlusion shader. Otherwise billboarding/lighting will not work correctly.
+
+The tree Tree_01 must use the Nature/Soft Occlusion shader. Otherwise billboarding/lighting will not work correctly.
+
+The tree Tree_02 must use the Nature/Soft Occlusion shader. Otherwise billboarding/lighting will not work correctly.
+
+The tree Tree_02 must use the Nature/Soft Occlusion shader. Otherwise billboarding/lighting will not work correctly.
+
+The tree Tree_04 must use the Nature/Soft Occlusion shader. Otherwise billboarding/lighting will not work correctly.
+
+The tree Tree_04 must use the Nature/Soft Occlusion shader. Otherwise billboarding/lighting will not work correctly.
+
+ -> (artifact id: '0579342fe35f5072df1e9cf6227ff972') in 0.129976 seconds
+  Import took 0.143694 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 16.234056 seconds.
+  path: Assets/1v1v1v1/Default_4_players.unity
+  artifactKey: Guid(d8fc9c183af6df747b27e62334a8571f) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/1v1v1v1/Default_4_players.unity using Guid(d8fc9c183af6df747b27e62334a8571f) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'c4a4bc22ca696cb6a0a2adc64af4a589') in 0.013463 seconds
+  Import took 0.022883 seconds .
+
