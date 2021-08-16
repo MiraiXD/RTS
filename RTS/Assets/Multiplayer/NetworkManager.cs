@@ -36,10 +36,39 @@ public class NetworkManager : MonoBehaviour
         client.MessageReceived += OnMessageReceived;
     }
     float lastWorldUpdateTime;
-    private void OnWorldUpdate(Message arg1, object arg2, MessageReceivedEventArgs arg3)
+    float networkDeltaTime;
+    double lastTimeStamp = 0f;
+    public float smoothness = 1f;
+    Vector3 cubePos;
+    private void Update()
     {
-        Debug.Log(Time.realtimeSinceStartup - lastWorldUpdateTime);
-        lastWorldUpdateTime = Time.realtimeSinceStartup;
+        if(cube != null && cubePos != Vector3.zero)
+        {
+            Vector3 newPos = Vector3.Lerp(cube.transform.position, cubePos, smoothness * Time.deltaTime);
+            Debug.Log("Speed: " + (newPos - cube.transform.position).magnitude/Time.deltaTime);
+            cube.transform.position = newPos;
+            
+        }
+    }
+    private void OnWorldUpdate(Message message, object sender, MessageReceivedEventArgs e)
+    {        
+        using (DarkRiftReader reader = message.GetReader())
+        {
+            Messages.Server.WorldUpdate worldUpdateMessage = reader.ReadSerializable<Messages.Server.WorldUpdate>();
+            Debug.Log("TIME " + worldUpdateMessage.timeSinceStartup);
+            //if (worldUpdateMessage.timeSinceStartup > lastTimeStamp)
+            //{
+            //    networkDeltaTime = Time.realtimeSinceStartup - lastWorldUpdateTime;
+            //    lastWorldUpdateTime = Time.realtimeSinceStartup;                
+            //    cubePos = new Vector3(worldUpdateMessage.x, 2.5f, worldUpdateMessage.z);                                
+
+            //    lastTimeStamp = worldUpdateMessage.timeSinceStartup;
+            //}
+            //else
+            //{
+            //    Debug.LogError("LOST PACKET");
+            //}
+        }
     }
     GameObject cube;
     private void OnStartGameMessage(Message message, object sender, MessageReceivedEventArgs e)
@@ -54,11 +83,11 @@ public class NetworkManager : MonoBehaviour
             Messages.Server.LoadMap serverMessage = reader.ReadSerializable<Messages.Server.LoadMap>();            
             StartCoroutine(LoadSceneAsync(serverMessage.mapName, () =>
             {               
-                Messages.Player.ReadyToStartGame playerMessage = new Messages.Player.ReadyToStartGame();
+                Messages.Client.ReadyToStartGame playerMessage = new Messages.Client.ReadyToStartGame();
                 using (DarkRiftWriter writer = DarkRiftWriter.Create())
                 {
                     writer.Write(playerMessage);
-                    using (Message m = Message.Create(Messages.Player.ReadyToStartGame.Tag, writer))
+                    using (Message m = Message.Create(Messages.Client.ReadyToStartGame.Tag, writer))
                     {
                         client.SendMessage(m, SendMode.Reliable);   
                     }
@@ -110,8 +139,8 @@ public class NetworkManager : MonoBehaviour
     {
         using (DarkRiftWriter writer = DarkRiftWriter.Create())
         {
-            writer.Write(new Messages.Player.Hello() { playerName = playerName });
-            using (Message message = Message.Create(Messages.Player.Hello.Tag, writer))
+            writer.Write(new Messages.Client.Hello() { playerName = playerName });
+            using (Message message = Message.Create(Messages.Client.Hello.Tag, writer))
             {
                 client.SendMessage(message, SendMode.Reliable);
             }

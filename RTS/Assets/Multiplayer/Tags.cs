@@ -3,7 +3,7 @@ using System;
 
 public class Messages
 {
-    public class Player
+    public class Client
     {
         public class Hello : IDarkRiftSerializable
         {
@@ -32,15 +32,18 @@ public class Messages
         public class WorldUpdate : IDarkRiftSerializable
         {
             public const ushort Tag = 1105;
+            public double timeSinceStartup;
             public float x, z;
             public void Deserialize(DeserializeEvent e)
             {
+                timeSinceStartup = e.Reader.ReadDouble();
                 x = e.Reader.ReadSingle();
                 z = e.Reader.ReadSingle();
             }
 
             public void Serialize(SerializeEvent e)
             {
+                e.Writer.Write(timeSinceStartup);
                 e.Writer.Write(x);
                 e.Writer.Write(z);
             }

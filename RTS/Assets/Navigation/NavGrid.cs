@@ -17,16 +17,16 @@ namespace KK.NavGrid
 
         public Vector2Int gridSize;
         public List<Vector2Int> obstacles;
-        public List<Vector2Int> occupiedNodes;        
+        public List<Vector2Int> occupiedNodes;
 
         public void Init()
         {
-            occupiedNodes = new List<Vector2Int>();            
+            occupiedNodes = new List<Vector2Int>();
 
             pathfinding.Init(gridSize, obstacles);
 
             pathRequests = new List<PathRequest>();
-        } 
+        }
         public bool IsNodeAnObstacle(Vector2Int node)
         {
             return obstacles.Contains(node);
@@ -45,12 +45,12 @@ namespace KK.NavGrid
         }
 
         public Vector2Int WorldToCell(Vector3 worldPos)
-        {            
+        {
             Vector3Int cellPos = grid.WorldToCell(worldPos);
             return new Vector2Int(cellPos.x, cellPos.z);
         }
         public Vector3 GetCellCenterWorld(Vector2Int cell)
-        {         
+        {
             return grid.GetCellCenterWorld(new Vector3Int(cell.x, 0, cell.y));
         }
         public Vector3 CellToLocal(Vector2Int cell)

@@ -102,7 +102,7 @@ public class Lobby : MonoBehaviour
     {
         connectButton.GetComponentInChildren<Text>().text = "Matchmaking";
 
-        yield return new WaitForSeconds(1);
+        yield return new WaitForSeconds(10);
         // Poll the ticket
         PlayFabMultiplayerAPI.GetMatchmakingTicket(
             new GetMatchmakingTicketRequest

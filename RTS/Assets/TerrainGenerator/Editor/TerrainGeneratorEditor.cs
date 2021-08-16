@@ -9,17 +9,17 @@ public class TerrainGeneratorEditor : Editor
     {
         base.OnInspectorGUI();
 
-        if(GUILayout.Button("Generate"))
+        if (GUILayout.Button("Generate"))
         {
             (target as TerrainGenerator).Generate();
         }
-        if (GUILayout.Button("Place Decorations Randomly"))
-        {
-            (target as TerrainGenerator).PlaceDecorationsRandomly();
-        }
-        if (GUILayout.Button("Snap Decorations To Grid"))
-        {
-            (target as TerrainGenerator).SnapDecorationsToGrid();
-        }
+        //if (GUILayout.Button("Place Decorations Randomly"))
+        //{
+        //    (target as TerrainGenerator).PlaceDecorationsRandomly();
+        //}
+        //if (GUILayout.Button("Snap Decorations To Grid"))
+        //{
+        //    (target as TerrainGenerator).SnapDecorationsToGrid();
+        //}
     }
 }
