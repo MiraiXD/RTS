@@ -13,10 +13,5 @@ MonoBehaviour:
   m_Name: Knight
   m_EditorClassIdentifier: 
   unitType: 1
-  maxHealth: 200
-  movementSpeed: 4
-  attackSpeedModifier: 1
-  rangeModifier: 1
-  damageModifier: 1
-  prefab: {fileID: 2955947914033028236, guid: 2b8656564128e674387b70177b3b9b33, type: 3}
-  portrait: {fileID: 4925447068233826214, guid: 5bf5e545613a51e48a222edbc181d2ad, type: 3}
+  prefab: {fileID: 2929096273338827121, guid: 3230a85b5bdd79c43aef6c9b80ab21b7, type: 3}
+  portrait: {fileID: 10901, guid: 0000000000000000f000000000000000, type: 0}

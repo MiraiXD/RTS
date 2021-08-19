@@ -1,4 +1,11 @@
-WalkableNodes:
+GridPosX=32,17
+GridPosY=3
+GridPosZ=32,17
+Width=137
+Height=137
+CellSizeX=1,5
+CellSizeY=1,5
+WalkableNodes=18302
 0:0
 1:0
 2:0
@@ -18301,7 +18308,7 @@ WalkableNodes:
 134:136
 135:136
 136:136
-Obstacles:
+Obstacles=467
 19:0
 20:0
 21:0

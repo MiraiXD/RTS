@@ -4,16 +4,11 @@ using UnityEngine;
 
 public class NetworkEntity : MonoBehaviour
 {
-    public ushort networkID { get; private set; }
-    public string playerName { get; private set; }
-
-    public void SetNetworkID(ushort _networkID)
+    public NetworkIdentity networkID;    
+    public bool isLocalAuthority { get; private set; }
+    public void Init(NetworkIdentity networkID, bool isLocalAuthority)
     {
-        networkID = _networkID;
-    }
-
-    public void SetPlayerName(string _playerName)
-    {
-        playerName = _playerName;
+        this.networkID = networkID;
+        this.isLocalAuthority = isLocalAuthority;
     }
 }

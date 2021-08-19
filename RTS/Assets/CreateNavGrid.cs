@@ -85,13 +85,20 @@ namespace KK.NavGrid
                 }
             }
 
-            string content;
-            content = "WalkableNodes:" + Environment.NewLine;
+            string content="";
+            content += "GridPosX=" + transform.position.x + Environment.NewLine;
+            content += "GridPosY=" + transform.position.y + Environment.NewLine;
+            content += "GridPosZ=" + transform.position.z + Environment.NewLine;
+            content += "Width=" + gridSize.x +Environment.NewLine;
+            content += "Height=" + gridSize.y +Environment.NewLine;
+            content += "CellSizeX=" + grid.cellSize.x + Environment.NewLine;
+            content += "CellSizeY=" + grid.cellSize.z + Environment.NewLine;
+            content += "WalkableNodes=" + walkableNodes.Count + Environment.NewLine;
             foreach (var n in walkableNodes)
             {
                 content += n.ToString() +Environment.NewLine;
             }
-            content += "Obstacles:" + Environment.NewLine;
+            content += "Obstacles=" +obstacles.Count + Environment.NewLine;
             foreach (var n in obstacles)
             {
                 content += n.ToString() + Environment.NewLine;
@@ -100,6 +107,7 @@ namespace KK.NavGrid
             File.WriteAllText("Default_4_players.txt", content);
             Debug.Log("Baking finished");
         }
+#if UNITY_EDITOR
         private void OnValidate()
         {
             if (manualObstaclesAdding != lastManualObstaclesAdding)
@@ -131,7 +139,7 @@ namespace KK.NavGrid
 
             }
         }
-
+#endif
         public bool showGrid;
         bool lastManualObstaclesAdding = false;
         private void OnDrawGizmos()
