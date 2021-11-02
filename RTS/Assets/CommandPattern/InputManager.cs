@@ -9,6 +9,7 @@ namespace KK.CommandPattern
     /// </summary>
     public abstract class InputManager : MonoBehaviour, ICursorPositionProvider
     {
-        public abstract Vector3 GetCursorPosition();        
+        public abstract Vector3 GetCursorPosition();
+        public abstract void UpdateInput();
     }
 }

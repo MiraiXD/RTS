@@ -24,13 +24,56 @@ public class NetworkManager : MonoBehaviour
     private LocalGameManager gameManager;
     private float lastWorldUpdateTime;
     private float lastTimeStamp = 0f;
-    public float networkDeltaTime { get; private set; }    
+    public float networkDeltaTime { get; private set; }
+    //private void OnStartGameMessage(Message message, MessageReceivedEventArgs e)
+    //{
+    //    Debug.Log("START GAME");
+
+    //    gameManager = FindObjectOfType<LocalGameManager>();
+    //    gameManager.Init(this);
+    //}
     private void OnStartGameMessage(Message message, MessageReceivedEventArgs e)
     {
         Debug.Log("START GAME");
 
         gameManager = FindObjectOfType<LocalGameManager>();
         gameManager.Init(this);
+
+        using(DarkRiftReader reader = message.GetReader())
+        {
+            Messages.Server.StartGame m = reader.ReadSerializable<Messages.Server.StartGame>();
+            //foreach(var v in m.vertices)
+            //{
+            //    var sphere = GameObject.CreatePrimitive(PrimitiveType.Sphere);
+            //    sphere.transform.position = v;
+            //    sphere.transform.localScale = new Vector3(0.3f, 0.3f, 0.3f);
+            //}
+            for (int i = 0; i < m.triangles.Length; i+=3)            
+            {
+                Vector3 p1, p2;
+
+                var edge1 = GameObject.CreatePrimitive(PrimitiveType.Cube);
+                p1 = m.vertices[m.triangles[i]];
+                p2 = m.vertices[m.triangles[i + 1]];
+                edge1.transform.position = (p1 + p2) / 2f;
+                edge1.transform.localScale = new Vector3(0.2f, 0.2f, (p1 - p2).magnitude);
+                edge1.transform.rotation = Quaternion.LookRotation((p2 - p1).normalized);
+
+                var edge2 = GameObject.CreatePrimitive(PrimitiveType.Cube);
+                p1 = m.vertices[m.triangles[i+1]];
+                p2 = m.vertices[m.triangles[i + 2]];
+                edge2.transform.position = (p1 + p2) / 2f;
+                edge2.transform.localScale = new Vector3(0.2f, 0.2f, (p1 - p2).magnitude);
+                edge2.transform.rotation = Quaternion.LookRotation((p2 - p1).normalized);
+
+                var edge3 = GameObject.CreatePrimitive(PrimitiveType.Cube);
+                p1 = m.vertices[m.triangles[i]];
+                p2 = m.vertices[m.triangles[i + 2]];
+                edge3.transform.position = (p1 + p2) / 2f;
+                edge3.transform.localScale = new Vector3(0.2f, 0.2f, (p1 - p2).magnitude);
+                edge3.transform.rotation = Quaternion.LookRotation((p2 - p1).normalized);
+            }
+        }
     }
 
     public void Init(string playerName)
@@ -79,21 +122,21 @@ public class NetworkManager : MonoBehaviour
             }
         }
     }
-    public void SendMoveUnit(NetworkIdentity unitID, int nodeXCoord, int nodeYCoord)
-    {
-        using (DarkRiftWriter writer = DarkRiftWriter.Create())
-        {
-            Messages.Client.MoveUnit moveUnitMessage = new Messages.Client.MoveUnit();
-            moveUnitMessage.unitID = unitID;
-            moveUnitMessage.nodeXCoord = nodeXCoord;
-            moveUnitMessage.nodeYCoord = nodeYCoord;
-            writer.Write(moveUnitMessage);
-            using (Message message = Message.Create(Messages.Client.MoveUnit.Tag, writer))
-            {
-                client.SendMessage(message, SendMode.Reliable);
-            }
-        }
-    }
+    //public void SendMoveUnits(NetworkIdentity unitID, int nodeXCoord, int nodeYCoord)
+    //{
+    //    using (DarkRiftWriter writer = DarkRiftWriter.Create())
+    //    {
+    //        Messages.Client.MoveUnits moveUnitsMessage = new Messages.Client.MoveUnits();
+    //        moveUnitsMessage.unitID = unitID;
+    //        moveUnitsMessage.nodeXCoord = nodeXCoord;
+    //        moveUnitsMessage.nodeYCoord = nodeYCoord;
+    //        writer.Write(moveUnitsMessage);
+    //        using (Message message = Message.Create(Messages.Client.MoveUnit.Tag, writer))
+    //        {
+    //            client.SendMessage(message, SendMode.Reliable);
+    //        }
+    //    }
+    //}
     private void OnWorldUpdate(Message message, MessageReceivedEventArgs e)
     {        
         using (DarkRiftReader reader = message.GetReader())
@@ -112,10 +155,7 @@ public class NetworkManager : MonoBehaviour
                 Debug.LogError("LOST PACKET");
             }
         }
-    }
-    
-    
-
+    }  
     private void OnLoadMapMessage(Message message, MessageReceivedEventArgs e)
     {
         foreach (var kvp in players)
@@ -162,7 +202,17 @@ public class NetworkManager : MonoBehaviour
             }
         }
     }
-
+    public void SendMessageToServer(IDarkRiftSerializable message, ushort tag, SendMode sendMode)
+    {
+        using (DarkRiftWriter writer = DarkRiftWriter.Create())
+        {
+            writer.Write<IDarkRiftSerializable>(message);
+            using (Message m = Message.Create(tag, writer))
+            {
+                client.SendMessage(m, sendMode);
+            }
+        }
+    }
     public void Connect(IPAddress ip, int tcpPort, int udpPort)
     {
         debugText.text = ("CONNECTING");

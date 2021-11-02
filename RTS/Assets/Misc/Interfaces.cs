@@ -11,8 +11,7 @@ public interface IBattleUnitCommand
     void Execute();
 }
 public interface ISelectable
-{
-    bool CanSelect(Team team);
+{    
     void Select();
     void Deselect();
 }

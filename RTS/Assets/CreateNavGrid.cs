@@ -93,11 +93,11 @@ namespace KK.NavGrid
             content += "Height=" + gridSize.y +Environment.NewLine;
             content += "CellSizeX=" + grid.cellSize.x + Environment.NewLine;
             content += "CellSizeY=" + grid.cellSize.z + Environment.NewLine;
-            content += "WalkableNodes=" + walkableNodes.Count + Environment.NewLine;
-            foreach (var n in walkableNodes)
-            {
-                content += n.ToString() +Environment.NewLine;
-            }
+            //content += "WalkableNodes=" + walkableNodes.Count + Environment.NewLine;
+            //foreach (var n in walkableNodes)
+            //{
+            //    content += n.ToString() +Environment.NewLine;
+            //}
             content += "Obstacles=" +obstacles.Count + Environment.NewLine;
             foreach (var n in obstacles)
             {
@@ -159,13 +159,13 @@ namespace KK.NavGrid
                 foreach (var n in walkableNodes)
                 {
                     Gizmos.color = Color.white;
-                    Gizmos.DrawWireCube(GetCellCenterWorld(n), grid.cellSize * .95f);
+                    Gizmos.DrawWireCube(GetCellCenterWorld(n), grid.cellSize * .99f);
                 }
 
                 foreach (var n in obstacles)
                 {
                     Gizmos.color = Color.red;
-                    Gizmos.DrawWireCube(GetCellCenterWorld(n), grid.cellSize * .95f);
+                    Gizmos.DrawWireCube(GetCellCenterWorld(n), grid.cellSize * .99f);
                 }
             }
         }

@@ -22,7 +22,7 @@ public class TerrainGenerator : MonoBehaviour
         data.heightmapResolution = 2 * width + 1;
         data.size = new Vector3(width, depth, height);
         data.SetHeights(0, 0, GenerateHeights(data.heightmapResolution, data.heightmapResolution));
-        
+
         return data;
     }
 
@@ -40,19 +40,19 @@ public class TerrainGenerator : MonoBehaviour
 
         int w = 195 * 2;
         int h = 195 * 2;
-        Vector2Int leftBottomCorner = new Vector2Int(width / 2 - w / 2, height / 2 - h / 2);
-        Vector2Int rightBottomCorner = new Vector2Int(width / 2 + w / 2, height / 2 - h / 2);
+        Vector2Int leftBottomCorner = new Vector2Int(width / 2 - 1 - w / 2, height / 2 - 1 - h / 2);
+        Vector2Int rightBottomCorner = new Vector2Int(width / 2 + w / 2, height / 2 - 1 - h / 2);
         Vector2Int rightUpperCorner = new Vector2Int(width / 2 + w / 2, height / 2 + h / 2);
-        Vector2Int leftUpperCorner = new Vector2Int(width / 2 - w / 2, height / 2 + h / 2);
+        Vector2Int leftUpperCorner = new Vector2Int(width / 2 - 1 - w / 2, height / 2 + h / 2);
         Vector2Int[] polygon = new Vector2Int[]
         {
             leftBottomCorner,rightBottomCorner,rightUpperCorner,leftUpperCorner
         };
         SetHeights(polygon, 3f, ref heights);
 
-        int platformWidth = 30*2;
-        int platformHeight = 30*2;
-        int platformShortSide = 15*2;
+        int platformWidth = 30 * 2;
+        int platformHeight = 30 * 2;
+        int platformShortSide = 15 * 2;
         Vector2Int[] leftBottomPlatformPolygon = new Vector2Int[]
         {
             leftBottomCorner,

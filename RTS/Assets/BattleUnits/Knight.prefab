@@ -67693,6 +67693,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c72980ef7be506b4a9d2a43226ff5288, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  selectedEffect: {fileID: 8332649853146807027}
+  highlightedEffect: {fileID: 593226574915860986}
 --- !u!1 &4937144182992763863
 GameObject:
   m_ObjectHideFlags: 0
@@ -67836,6 +67838,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7042d427fb6609f46b0c5b0e85ca9f88, type: 3}
+--- !u!212 &593226574915860986 stripped
+SpriteRenderer:
+  m_CorrespondingSourceObject: {fileID: 2167168091304599328, guid: 7042d427fb6609f46b0c5b0e85ca9f88, type: 3}
+  m_PrefabInstance: {fileID: 1596741060542588634}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &2427962770955594557 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4006260618264153575, guid: 7042d427fb6609f46b0c5b0e85ca9f88, type: 3}
@@ -67906,6 +67913,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0eb2def2e4a34b249a9ee2c05cd58455, type: 3}
+--- !u!212 &8332649853146807027 stripped
+SpriteRenderer:
+  m_CorrespondingSourceObject: {fileID: 1219062270960601418, guid: 0eb2def2e4a34b249a9ee2c05cd58455, type: 3}
+  m_PrefabInstance: {fileID: 7154388337555846073}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &6496952426917439540 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4134499650435554189, guid: 0eb2def2e4a34b249a9ee2c05cd58455, type: 3}
